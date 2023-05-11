@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
 import logo from '../assets/images/logoPage1.svg';
 import wattermark from '../assets/images/watermarkPage1.svg';
+import Underline from '../components/Underline';
 const Home = () => {
   return (
     <main className='min-h-screen bg-pageOneBg flex flex-col'>
       <section className='mx-[70px] flex flex-col flex-grow'>
         <header>
           <img src={logo} alt='redberry logo' className='py-[25px]' />
-          <div className='h-[1px] bg-offBlack'></div>
+          <Underline />
         </header>
         <div className='relative flex flex-grow justify-center items-center'>
           <Link

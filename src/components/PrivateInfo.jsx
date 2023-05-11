@@ -1,4 +1,10 @@
+import PageTitle from './PageTitle';
+
 const PrivateInfo = () => {
-  return <div>PrivateInfo</div>;
+  return (
+    <>
+      <PageTitle title={'პირადი ინფო'} pageNum={1} />
+    </>
+  );
 };
 export default PrivateInfo;
