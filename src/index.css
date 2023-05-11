@@ -1,0 +1,13 @@
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('./assets/fonts/HelveticaNeue.ttc');
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Helvetica Neue', sans-serif;
+  }
+}
