@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
+import PrivateInfo from '../components/PrivateInfo';
+import ResumeLayout from '../layout/ResumeLayout';
 const Resume = () => {
   return (
-    <div>
-      <Link to={'/'}>go back</Link>
-    </div>
+    <ResumeLayout>
+      <PrivateInfo />
+    </ResumeLayout>
   );
 };
 export default Resume;
