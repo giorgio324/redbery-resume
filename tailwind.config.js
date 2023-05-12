@@ -14,7 +14,9 @@ export default {
         validationDefault: '#BCBCBC',
         validationSuccess: '#98E37E',
         validationDanger: '#EF5050',
+        hint: '#2E2E2E',
         offBlack: '#1A1A1A',
+        caret: '#6499FF',
       },
       fontFamily: {
         primary: '"Helvetica Neue"',
