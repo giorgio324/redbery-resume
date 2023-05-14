@@ -23,6 +23,14 @@ const PrivateInfo = () => {
           hint={'მინიმუმ 2 ასო, ქართული ასოები'}
         />
       </div>
+      <div>
+        <CustomInput
+          hint={'პირადი ფოტოს ატვირთვა'}
+          id={'image'}
+          isFileInput
+          labelText={'ატვირთვა'}
+        />
+      </div>
     </>
   );
 };

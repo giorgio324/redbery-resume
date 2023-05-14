@@ -9,12 +9,7 @@ const ResumeLayout = ({ children }) => {
         <BackButton />
         <div className='flex-grow'>{children}</div>
       </section>
-      {/* 
-            alternative styles check it later
-          <div className='max-h-screen overflow-y-auto'>
-            <Preview />
-          </div> */}
-      <div className=''>
+      <div>
         <Preview />
       </div>
     </main>
