@@ -9,7 +9,7 @@ const NavigationButtonContainer = ({ page }) => {
       }
     >
       {page > 1 && <CustomNavigationButton title={'უკან'} type={'button'} />}
-      <CustomNavigationButton title={'შემდეგი'} type={'button'} />
+      <CustomNavigationButton title={'შემდეგი'} type={'button'} next />
     </div>
   );
 };

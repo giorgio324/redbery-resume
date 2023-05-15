@@ -1,10 +1,12 @@
 import CustomInput from './CustomInput';
 import PageTitle from './PageTitle';
 import NavigationButtonContainer from './NavigationButtonContainer';
+import { useSelector } from 'react-redux';
 const PrivateInfo = () => {
+  const { page } = useSelector((state) => state.page);
   return (
     <>
-      <PageTitle title={'პირადი ინფო'} pageNum={1} />
+      <PageTitle title={'პირადი ინფო'} pageNum={page} />
       <div className='flex gap-x-[56px]'>
         <CustomInput
           id={'name'}
@@ -60,7 +62,7 @@ const PrivateInfo = () => {
           hint={'უნდა აკმაყოფილებდეს ქართული მობილურის ნომრის ფორმატს'}
         />
       </div>
-      <NavigationButtonContainer page={2} />
+      <NavigationButtonContainer page={page} />
     </>
   );
 };
