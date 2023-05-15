@@ -1,9 +1,15 @@
 import PrivateInfoPreview from './PrivateInfoPreview';
-const Preview = () => {
+import watermark from '../assets/images/previewWatermark.svg';
+const PreviewContainer = () => {
   return (
-    <section className='min-h-screen bg-white min-w-[820px] max-w-[820px] px-[80px] pt-[50px]'>
+    <section className='relative min-h-screen bg-white min-w-[820px] max-w-[820px] px-[80px] pt-[50px] pb-[144px]'>
       <PrivateInfoPreview />
+      <img
+        src={watermark}
+        alt=''
+        className='absolute bottom-[44px] left-[80px]'
+      />
     </section>
   );
 };
-export default Preview;
+export default PreviewContainer;
