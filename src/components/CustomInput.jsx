@@ -1,3 +1,6 @@
+import { useDispatch } from 'react-redux';
+import { useFormContext } from 'react-hook-form';
+import { updatePrivateInfo } from '../features/PrivateInfoSlice';
 const CustomInput = ({
   name,
   labelText,
@@ -6,8 +9,16 @@ const CustomInput = ({
   isFileInput,
   placeholder,
   hint,
-  onChange,
 }) => {
+  const dispatch = useDispatch();
+  const { register, setValue } = useFormContext();
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setValue(name, value);
+    dispatch(updatePrivateInfo({ fieldName: name, value }));
+  };
+
   return (
     <>
       {isTextArea ? (
@@ -20,6 +31,8 @@ const CustomInput = ({
             name={name}
             id={name}
             placeholder={placeholder}
+            {...register(name)}
+            onChange={handleChange}
             className='resize-none border border-validationDefault focus:outline-2 outline-validationDefault caret-caret placeholder:text-inputPlaceholder text-black font-400 rounded-[4px] py-[7px] px-4 my-2 h-[100px]'
           ></textarea>
         </div>
@@ -36,7 +49,14 @@ const CustomInput = ({
           >
             {labelText}
           </label>
-          <input type='file' name={name} id={name} className='hidden' />
+          <input
+            type='file'
+            name={name}
+            id={name}
+            {...register(name)}
+            onChange={handleChange}
+            className='hidden'
+          />
         </div>
       ) : (
         // noraml input
@@ -49,6 +69,8 @@ const CustomInput = ({
             name={name}
             id={name}
             placeholder={placeholder}
+            {...register(name, { required: true })}
+            onChange={handleChange}
             className='border border-validationDefault focus:outline-2 outline-validationDefault caret-caret placeholder:text-inputPlaceholder text-black font-400 rounded-[4px] py-[7px] px-4 my-2'
           />
           {hint && (
