@@ -6,7 +6,7 @@ const PreviewContainer = () => {
       <PrivateInfoPreview />
       <img
         src={watermark}
-        alt=''
+        alt='watermark'
         className='absolute bottom-[44px] left-[80px]'
       />
     </section>
