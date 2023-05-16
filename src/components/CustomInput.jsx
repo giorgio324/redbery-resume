@@ -1,50 +1,53 @@
 const CustomInput = ({
-  type,
   name,
-  id,
-  isTextBox,
-  isFileInput,
   labelText,
+  type,
+  isTextArea,
+  isFileInput,
   placeholder,
   hint,
   onChange,
 }) => {
   return (
     <>
-      {isTextBox ? (
+      {isTextArea ? (
+        // text area
         <div className='w-full flex flex-col'>
-          <label htmlFor={id} className='font-500 text-black'>
+          <label htmlFor={name} className='font-500 text-black'>
             {labelText}
           </label>
           <textarea
             name={name}
-            id={id}
+            id={name}
             placeholder={placeholder}
             className='resize-none border border-validationDefault focus:outline-2 outline-validationDefault caret-caret placeholder:text-inputPlaceholder text-black font-400 rounded-[4px] py-[7px] px-4 my-2 h-[100px]'
           ></textarea>
         </div>
       ) : isFileInput ? (
+        // file input
         <div className='flex gap-x-[20px]  items-center my-[50px]'>
           {hint && (
             <span className='font-500 text-[18px] text-offBlack'>{hint}</span>
           )}
           <label
-            htmlFor={id}
+            htmlFor={name}
+            name={name}
             className='bg-btnImageUpload transition-colors ease-in-out duration-300 hover:bg-blue-700 text-white font-400 rounded cursor-pointer py-1 px-5'
           >
             {labelText}
           </label>
-          <input type='file' name={name} id={id} className='hidden' />
+          <input type='file' name={name} id={name} className='hidden' />
         </div>
       ) : (
+        // noraml input
         <div className='w-full flex flex-col'>
-          <label htmlFor={id} className='font-500 text-black'>
+          <label htmlFor={name} className='font-500 text-black'>
             {labelText}
           </label>
           <input
             type={type}
             name={name}
-            id={id}
+            id={name}
             placeholder={placeholder}
             className='border border-validationDefault focus:outline-2 outline-validationDefault caret-caret placeholder:text-inputPlaceholder text-black font-400 rounded-[4px] py-[7px] px-4 my-2'
           />
