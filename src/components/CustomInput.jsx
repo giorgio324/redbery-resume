@@ -92,7 +92,7 @@ const CustomInput = ({
           <label htmlFor={name} className='font-500 text-black'>
             {labelText}
           </label>
-          <div className='flex items-center'>
+          <div className='flex items-center relative'>
             <input
               type={type}
               name={name}
@@ -111,10 +111,18 @@ const CustomInput = ({
               } focus:outline-2 outline-validationDefault caret-caret placeholder:text-inputPlaceholder text-black font-400 rounded-[4px] py-[7px] px-4 flex-grow`}
             />
             {hasError && (
-              <img src={errorIcon} alt='Error' className='w-4 ml-2' />
+              <img
+                src={errorIcon}
+                alt='Error'
+                className='w-4 ml-2 absolute -right-7'
+              />
             )}
             {isValidated && (
-              <img src={validatedIcon} alt='Validation' className='w-4 ml-2' />
+              <img
+                src={validatedIcon}
+                alt='Validation'
+                className='w-4 ml-2 absolute right-4'
+              />
             )}
           </div>
           {hint && (
