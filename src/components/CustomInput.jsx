@@ -37,7 +37,8 @@ const CustomInput = ({
             placeholder={placeholder}
             {...register(name)}
             onChange={handleChange}
-            className='resize-none border border-validationDefault focus:outline-2 outline-validationDefault caret-caret placeholder:text-inputPlaceholder text-black font-400 rounded-[4px] py-[7px] px-4 my-2 h-[100px]'
+            className='resize-none border border-validationDefault focus:outline-2 outline-validationDefault caret-caret placeholder:text-inputPlaceholder text-black font-400 rounded-[4px] py-[7px] px-4 my-2 h-[100px]
+            '
           ></textarea>
         </div>
       ) : isFileInput ? (

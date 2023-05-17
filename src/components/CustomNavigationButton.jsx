@@ -6,13 +6,14 @@ const CustomNavigationButton = ({ title, type, next }) => {
   const dispatch = useDispatch();
   const {
     formState: { isValid },
+    trigger,
   } = useFormContext();
 
   const handleClick = () => {
     if (isValid) {
       dispatch(nextPage());
     } else {
-      console.log('Form is not valid');
+      trigger(['name', 'surname', 'email', 'phone_number']);
     }
   };
 

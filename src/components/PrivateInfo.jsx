@@ -64,9 +64,6 @@ const PrivateInfo = () => {
         />
       </div>
       <NavigationButtonContainer page={page} />
-      <pre>
-        <code>{JSON.stringify(watch(), null, 2)}</code>
-      </pre>
     </form>
   );
 };
