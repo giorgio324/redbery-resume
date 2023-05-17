@@ -24,7 +24,17 @@ const PrivateInfoPreview = () => {
           {phone_number && (
             <div className='flex gap-x-3 mt-[10px]'>
               <img src={phoneIcon} alt='' />
-              <p>+995 597 63 45 16</p>
+              <p>
+                {phone_number.slice(0, 4) +
+                  ' ' +
+                  phone_number.slice(4, 7) +
+                  ' ' +
+                  phone_number.slice(7, 9) +
+                  ' ' +
+                  phone_number.slice(9, 11) +
+                  ' ' +
+                  phone_number.slice(11, 13)}
+              </p>
             </div>
           )}
         </div>
