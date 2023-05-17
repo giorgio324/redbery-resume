@@ -11,7 +11,11 @@ const CustomInput = ({
   hint,
 }) => {
   const dispatch = useDispatch();
-  const { register, setValue } = useFormContext();
+  const {
+    register,
+    setValue,
+    formState: { errors },
+  } = useFormContext();
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -69,12 +73,19 @@ const CustomInput = ({
             name={name}
             id={name}
             placeholder={placeholder}
-            {...register(name, { required: true })}
+            {...register(name, {
+              required: { value: true, message: 'This field is required' },
+            })}
             onChange={handleChange}
             className='border border-validationDefault focus:outline-2 outline-validationDefault caret-caret placeholder:text-inputPlaceholder text-black font-400 rounded-[4px] py-[7px] px-4 my-2'
           />
           {hint && (
             <span className='font-300 text-[14px] text-hint'>{hint}</span>
+          )}
+          {errors[name] && (
+            <span className='font-300 text-[14px] text-red-500'>
+              {errors[name].message}
+            </span>
           )}
         </div>
       )}
