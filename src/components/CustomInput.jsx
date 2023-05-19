@@ -39,7 +39,6 @@ const CustomInput = ({
       const file = e.target.files[0];
       if (file) {
         convertFileToBase64(file, (base64Data) => {
-          setValue(name, base64Data);
           dispatch(updatePrivateInfo({ fieldName: name, value: base64Data }));
         });
       } else {
@@ -92,19 +91,12 @@ const CustomInput = ({
           {hint && (
             <span className='font-500 text-[18px] text-offBlack'>{hint}</span>
           )}
-          <label
-            htmlFor={name}
-            className='bg-btnImageUpload transition-colors ease-in-out duration-300 hover:bg-blue-700 text-white font-400 rounded cursor-pointer py-1 px-5'
-          >
-            {labelText}
-          </label>
           <input
             type={type}
             name={name}
             id={name}
             {...register(name, { required: 'This field is required' })}
             onChange={handleChange}
-            className='hidden'
           />
           {hasError && <img src={errorIcon} alt='Error' className='w-4 ml-2' />}
           {isValidated && (
