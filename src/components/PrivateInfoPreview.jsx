@@ -54,13 +54,7 @@ const PrivateInfoPreview = () => {
           alt=''
           className='w-[246px] h-[246px] rounded-full object-cover'
         />
-      ) : (
-        <img
-          src={placeholder}
-          alt=''
-          className='w-[246px] h-[246px] rounded-full object-cover'
-        />
-      )}
+      ) : null}
     </div>
   );
 };

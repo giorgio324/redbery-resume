@@ -20,6 +20,8 @@ const PrivateInfo = () => {
           placeholder={'ანზორ'}
           type={'text'}
           hint={'მინიმუმ 2 ასო, ქართული ასოები'}
+          minLength={2}
+          regex={/^[ა-ჰ]+$/}
         />
         <CustomInput
           labelText={'გვარი'}
@@ -27,6 +29,8 @@ const PrivateInfo = () => {
           placeholder={'მუმლაძე'}
           type={'text'}
           hint={'მინიმუმ 2 ასო, ქართული ასოები'}
+          minLength={2}
+          regex={/^[ა-ჰ]+$/}
         />
       </div>
       <div>
@@ -53,6 +57,7 @@ const PrivateInfo = () => {
           labelText={'ელ.ფოსტა'}
           placeholder={'anzorr666@redberry.ge'}
           hint={'უნდა მთავრდებოდეს @redberry.ge-ით'}
+          regex={/^[\w\.-]+@redberry\.ge$/}
         />
       </div>
       <div className='mt-[30px]'>
@@ -62,6 +67,7 @@ const PrivateInfo = () => {
           labelText={'მობილურის ნომერი'}
           placeholder={'+995 551 12 34 56'}
           hint={'უნდა აკმაყოფილებდეს ქართული მობილურის ნომრის ფორმატს'}
+          regex={/^(\+995)(5\d{2})(\d{2})(\d{2})(\d{2})$/}
         />
       </div>
       <NavigationButtonContainer page={page} />

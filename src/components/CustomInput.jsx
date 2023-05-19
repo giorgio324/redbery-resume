@@ -25,6 +25,8 @@ const CustomInput = ({
   isFileInput,
   placeholder,
   hint,
+  minLength,
+  regex,
 }) => {
   const dispatch = useDispatch();
   const {
@@ -70,9 +72,7 @@ const CustomInput = ({
               id={name}
               placeholder={placeholder}
               {...register(name, {
-                required: isTextAreaRequired
-                  ? { value: true, message: 'This field is required' }
-                  : false,
+                required: isTextAreaRequired ? { value: true } : false,
               })}
               onChange={handleChange}
               className={`resize-none border ${
@@ -95,7 +95,7 @@ const CustomInput = ({
             type={type}
             name={name}
             id={name}
-            {...register(name, { required: 'This field is required' })}
+            {...register(name, { required: { value: true } })}
             onChange={handleChange}
           />
           {hasError && <img src={errorIcon} alt='Error' className='w-4 ml-2' />}
@@ -116,7 +116,9 @@ const CustomInput = ({
               id={name}
               placeholder={placeholder}
               {...register(name, {
-                required: { value: true, message: 'This field is required' },
+                required: { value: true },
+                minLength: minLength ? { value: minLength } : false,
+                pattern: regex ? { value: regex } : false,
               })}
               onChange={handleChange}
               className={`border ${
