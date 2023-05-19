@@ -29,19 +29,22 @@ const CustomInput = ({
   const dispatch = useDispatch();
   const {
     register,
-    setValue,
+    getValues,
     formState: { errors, touchedFields },
+    setValue,
   } = useFormContext();
-
+  console.log(getValues());
   const handleChange = (e) => {
     if (isFileInput) {
       const file = e.target.files[0];
       if (file) {
         convertFileToBase64(file, (base64Data) => {
+          setValue(name, base64Data);
           dispatch(updatePrivateInfo({ fieldName: name, value: base64Data }));
         });
       } else {
         // Handle the case when the user cancels the file upload
+        setValue(name, '');
         dispatch(updatePrivateInfo({ fieldName: name, value: '' }));
       }
     } else {
@@ -54,7 +57,6 @@ const CustomInput = ({
   const hasError = !!errors[name];
   const isTouched = !!touchedFields[name];
   const isValidated = isTouched && !hasError;
-
   return (
     <>
       {isTextArea ? (
@@ -92,16 +94,15 @@ const CustomInput = ({
           )}
           <label
             htmlFor={name}
-            name={name}
             className='bg-btnImageUpload transition-colors ease-in-out duration-300 hover:bg-blue-700 text-white font-400 rounded cursor-pointer py-1 px-5'
           >
             {labelText}
           </label>
           <input
-            type='file'
+            type={type}
             name={name}
             id={name}
-            {...register(name)}
+            {...register(name, { required: 'This field is required' })}
             onChange={handleChange}
             className='hidden'
           />

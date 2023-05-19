@@ -13,7 +13,7 @@ const CustomNavigationButton = ({ title, type, next }) => {
     if (isValid) {
       dispatch(nextPage());
     } else {
-      trigger(['name', 'surname', 'email', 'phone_number']);
+      trigger(['name', 'surname', 'email', 'phone_number', 'image']);
     }
   };
 

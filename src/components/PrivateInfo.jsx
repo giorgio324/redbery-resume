@@ -35,6 +35,7 @@ const PrivateInfo = () => {
           name={'image'}
           isFileInput
           labelText={'ატვირთვა'}
+          type={'file'}
         />
       </div>
       <div>
