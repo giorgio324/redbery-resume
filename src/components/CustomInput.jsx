@@ -36,9 +36,14 @@ const CustomInput = ({
   const handleChange = (e) => {
     if (isFileInput) {
       const file = e.target.files[0];
-      convertFileToBase64(file, (base64Data) => {
-        dispatch(updatePrivateInfo({ fieldName: name, value: base64Data }));
-      });
+      if (file) {
+        convertFileToBase64(file, (base64Data) => {
+          dispatch(updatePrivateInfo({ fieldName: name, value: base64Data }));
+        });
+      } else {
+        // Handle the case when the user cancels the file upload
+        dispatch(updatePrivateInfo({ fieldName: name, value: '' }));
+      }
     } else {
       const value = e.target.value;
       setValue(name, value);
