@@ -4,6 +4,18 @@ import { updatePrivateInfo } from '../features/PrivateInfoSlice';
 import errorIcon from '../assets/images/failedValidationIcon.svg';
 import validatedIcon from '../assets/images/successValidationIcon.svg';
 
+const convertFileToBase64 = (file, callback) => {
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = function () {
+    const base64Data = reader.result.split(',')[1];
+    callback(base64Data);
+  };
+  reader.onerror = function (error) {
+    console.log('Error converting file to base64:', error);
+  };
+};
+
 const CustomInput = ({
   name,
   labelText,
@@ -22,9 +34,16 @@ const CustomInput = ({
   } = useFormContext();
 
   const handleChange = (e) => {
-    const value = e.target.value;
-    setValue(name, value);
-    dispatch(updatePrivateInfo({ fieldName: name, value }));
+    if (isFileInput) {
+      const file = e.target.files[0];
+      convertFileToBase64(file, (base64Data) => {
+        dispatch(updatePrivateInfo({ fieldName: name, value: base64Data }));
+      });
+    } else {
+      const value = e.target.value;
+      setValue(name, value);
+      dispatch(updatePrivateInfo({ fieldName: name, value }));
+    }
   };
 
   const hasError = !!errors[name];
