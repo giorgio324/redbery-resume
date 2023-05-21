@@ -1,13 +1,36 @@
 import CustomInput from './CustomInput';
 import PageTitle from './PageTitle';
 import NavigationButtonContainer from './NavigationButtonContainer';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useFormContext } from 'react-hook-form';
+import { updatePrivateInfo } from '../features/PrivateInfoSlice';
 const PrivateInfo = () => {
+  const dispatch = useDispatch();
   const { page } = useSelector((state) => state.page);
   const { handleSubmit, watch } = useFormContext();
   const onSubmit = (data) => {
     console.log(data);
+  };
+  const convertFileToBase64 = (file, callback) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      const base64Data = reader.result.split(',')[1];
+      callback(base64Data);
+    };
+    reader.onerror = function (error) {
+      console.log('Error converting file to base64:', error);
+    };
+  };
+  const handleImageChange = (e, name) => {
+    const file = e.target.files[0];
+    if (file) {
+      convertFileToBase64(file, (base64Data) => {
+        dispatch(updatePrivateInfo({ fieldName: name, value: base64Data }));
+      });
+    } else {
+      dispatch(updatePrivateInfo({ fieldName: name, value: '' }));
+    }
   };
 
   return (
@@ -40,6 +63,7 @@ const PrivateInfo = () => {
           isFileInput
           labelText={'ატვირთვა'}
           type={'file'}
+          onChangeFunc={(e) => handleImageChange(e, 'image')}
         />
       </div>
       <div>

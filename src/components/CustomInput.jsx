@@ -4,18 +4,6 @@ import { updatePrivateInfo } from '../features/PrivateInfoSlice';
 import errorIcon from '../assets/images/failedValidationIcon.svg';
 import validatedIcon from '../assets/images/successValidationIcon.svg';
 
-const convertFileToBase64 = (file, callback) => {
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onload = function () {
-    const base64Data = reader.result.split(',')[1];
-    callback(base64Data);
-  };
-  reader.onerror = function (error) {
-    console.log('Error converting file to base64:', error);
-  };
-};
-
 const CustomInput = ({
   name,
   labelText,
@@ -27,32 +15,16 @@ const CustomInput = ({
   hint,
   minLength,
   regex,
+  onChangeFunc,
 }) => {
   const dispatch = useDispatch();
   const {
     register,
-    getValues,
     formState: { errors, touchedFields },
-    setValue,
   } = useFormContext();
-  console.log(getValues());
   const handleChange = (e) => {
-    if (isFileInput) {
-      const file = e.target.files[0];
-      if (file) {
-        convertFileToBase64(file, (base64Data) => {
-          dispatch(updatePrivateInfo({ fieldName: name, value: base64Data }));
-        });
-      } else {
-        // Handle the case when the user cancels the file upload
-        setValue(name, '');
-        dispatch(updatePrivateInfo({ fieldName: name, value: '' }));
-      }
-    } else {
-      const value = e.target.value;
-      setValue(name, value);
-      dispatch(updatePrivateInfo({ fieldName: name, value }));
-    }
+    const value = e.target.value;
+    dispatch(updatePrivateInfo({ fieldName: name, value }));
   };
 
   const hasError = !!errors[name];
@@ -96,7 +68,7 @@ const CustomInput = ({
             name={name}
             id={name}
             {...register(name, { required: { value: true } })}
-            onChange={handleChange}
+            onChange={onChangeFunc}
           />
           {hasError && <img src={errorIcon} alt='Error' className='w-4 ml-2' />}
           {isValidated && (
