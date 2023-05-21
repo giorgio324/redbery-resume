@@ -9,11 +9,14 @@ const CustomNavigationButton = ({ title, type, next }) => {
     trigger,
   } = useFormContext();
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (isValid) {
       dispatch(nextPage());
     } else {
-      trigger(['name', 'surname', 'email', 'phone_number', 'image']);
+      const isValidFields = await trigger();
+      if (isValidFields) {
+        dispatch(nextPage());
+      }
     }
   };
 
