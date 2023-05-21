@@ -11,6 +11,7 @@ const PrivateInfo = () => {
   const onSubmit = (data) => {
     console.log(data);
   };
+
   const convertFileToBase64 = (file, callback) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -22,6 +23,7 @@ const PrivateInfo = () => {
       console.log('Error converting file to base64:', error);
     };
   };
+
   const handleImageChange = (e, name) => {
     const file = e.target.files[0];
     if (file) {
@@ -33,6 +35,10 @@ const PrivateInfo = () => {
     }
   };
 
+  const handleInputChange = (e, name) => {
+    const value = e.target.value;
+    dispatch(updatePrivateInfo({ fieldName: name, value }));
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <PageTitle title={'პირადი ინფო'} pageNum={page} />
@@ -45,6 +51,7 @@ const PrivateInfo = () => {
           hint={'მინიმუმ 2 ასო, ქართული ასოები'}
           minLength={2}
           regex={/^[ა-ჰ]+$/}
+          onChangeFunc={(e) => handleInputChange(e, 'name')}
         />
         <CustomInput
           labelText={'გვარი'}
@@ -54,6 +61,7 @@ const PrivateInfo = () => {
           hint={'მინიმუმ 2 ასო, ქართული ასოები'}
           minLength={2}
           regex={/^[ა-ჰ]+$/}
+          onChangeFunc={(e) => handleInputChange(e, 'surname')}
         />
       </div>
       <div>
@@ -72,6 +80,7 @@ const PrivateInfo = () => {
           labelText={'ჩემ შესახებ (არასავალდებულო)'}
           name={'about_me'}
           placeholder={'ზოგადი ინფო შენ შესახებ'}
+          onChangeFunc={(e) => handleInputChange(e, 'about_me')}
         />
       </div>
       <div className='mt-[30px]'>
@@ -82,6 +91,7 @@ const PrivateInfo = () => {
           placeholder={'anzorr666@redberry.ge'}
           hint={'უნდა მთავრდებოდეს @redberry.ge-ით'}
           regex={/^[\w\.-]+@redberry\.ge$/}
+          onChangeFunc={(e) => handleInputChange(e, 'email')}
         />
       </div>
       <div className='mt-[30px]'>
@@ -92,6 +102,7 @@ const PrivateInfo = () => {
           placeholder={'+995 551 12 34 56'}
           hint={'უნდა აკმაყოფილებდეს ქართული მობილურის ნომრის ფორმატს'}
           regex={/^(\+995)(5\d{2})(\d{2})(\d{2})(\d{2})$/}
+          onChangeFunc={(e) => handleInputChange(e, 'phone_number')}
         />
       </div>
       <NavigationButtonContainer page={page} />

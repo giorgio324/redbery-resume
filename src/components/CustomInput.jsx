@@ -1,6 +1,4 @@
-import { useDispatch } from 'react-redux';
 import { useFormContext } from 'react-hook-form';
-import { updatePrivateInfo } from '../features/PrivateInfoSlice';
 import errorIcon from '../assets/images/failedValidationIcon.svg';
 import validatedIcon from '../assets/images/successValidationIcon.svg';
 
@@ -17,15 +15,10 @@ const CustomInput = ({
   regex,
   onChangeFunc,
 }) => {
-  const dispatch = useDispatch();
   const {
     register,
     formState: { errors, touchedFields },
   } = useFormContext();
-  const handleChange = (e) => {
-    const value = e.target.value;
-    dispatch(updatePrivateInfo({ fieldName: name, value }));
-  };
 
   const hasError = !!errors[name];
   const isTouched = !!touchedFields[name];
@@ -46,7 +39,7 @@ const CustomInput = ({
               {...register(name, {
                 required: isTextAreaRequired ? { value: true } : false,
               })}
-              onChange={handleChange}
+              onChange={onChangeFunc}
               className={`resize-none border ${
                 hasError
                   ? 'border-red-500'
@@ -92,7 +85,7 @@ const CustomInput = ({
                 minLength: minLength ? { value: minLength } : false,
                 pattern: regex ? { value: regex } : false,
               })}
-              onChange={handleChange}
+              onChange={onChangeFunc}
               className={`border ${
                 hasError
                   ? 'border-red-500'
