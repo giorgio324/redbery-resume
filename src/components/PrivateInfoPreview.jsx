@@ -1,4 +1,3 @@
-import placeholder from '../assets/images/placeholderImg.png';
 import emailIcon from '../assets/images/emailIcon.svg';
 import phoneIcon from '../assets/images/phoneIcon.svg';
 import { useSelector } from 'react-redux';
