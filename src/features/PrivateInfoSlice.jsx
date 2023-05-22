@@ -16,6 +16,7 @@ const privateInfoSlice = createSlice({
     updatePrivateInfo: (state, { payload }) => {
       const { fieldName, value } = payload;
       state[fieldName] = value;
+      localStorage.setItem('privateInfo', JSON.stringify(state));
     },
   },
 });

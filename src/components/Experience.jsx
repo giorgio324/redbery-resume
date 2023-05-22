@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import NavigationButtonContainer from './NavigationButtonContainer';
 import PageTitle from './PageTitle';
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,12 +15,16 @@ const Experience = () => {
   const { fields, append } = useFieldArray({
     name: 'experience',
     control,
-    defaultValues: experience,
   });
   console.log(fields);
   const onSubmit = (data) => {
     console.log(data);
   };
+  useEffect(() => {
+    if (experience.length === 0) {
+      handleAddField();
+    }
+  }, []);
 
   const handleInputChange = (e, name, index) => {
     const value = e.target.value;

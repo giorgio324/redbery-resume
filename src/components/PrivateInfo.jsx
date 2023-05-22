@@ -4,14 +4,21 @@ import NavigationButtonContainer from './NavigationButtonContainer';
 import { useSelector, useDispatch } from 'react-redux';
 import { useFormContext } from 'react-hook-form';
 import { updatePrivateInfo } from '../features/PrivateInfoSlice';
+import { useEffect } from 'react';
 const PrivateInfo = () => {
   const dispatch = useDispatch();
   const { page } = useSelector((state) => state.page);
-  const { handleSubmit, watch } = useFormContext();
+  const {
+    handleSubmit,
+    setValue,
+    getValues,
+    formState: { isDirty },
+  } = useFormContext();
   const onSubmit = (data) => {
     console.log(data);
   };
-
+  console.log(getValues());
+  console.log(isDirty);
   const convertFileToBase64 = (file, callback) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -39,6 +46,18 @@ const PrivateInfo = () => {
     const value = e.target.value;
     dispatch(updatePrivateInfo({ fieldName: name, value }));
   };
+
+  // this useEffect is for getting the data from localStorage and then setting it to the each field
+  useEffect(() => {
+    const storedPrivateInfo = JSON.parse(localStorage.getItem('privateInfo'));
+    if (storedPrivateInfo) {
+      Object.entries(storedPrivateInfo).forEach(([fieldName, value]) => {
+        dispatch(updatePrivateInfo({ fieldName, value }));
+        setValue(fieldName, value); // Set form field value
+      });
+    }
+  }, [dispatch, setValue]);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <PageTitle title={'პირადი ინფო'} pageNum={page} />
