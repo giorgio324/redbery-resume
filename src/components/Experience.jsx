@@ -1,23 +1,34 @@
 import NavigationButtonContainer from './NavigationButtonContainer';
 import PageTitle from './PageTitle';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useFormContext, useFieldArray } from 'react-hook-form';
 import CustomInput from './CustomInput';
+import { updateExperience, addExperience } from '../features/ExperienceSlice';
 
 const Experience = () => {
+  const dispatch = useDispatch();
   const { page } = useSelector((state) => state.page);
-  const {
-    handleSubmit,
-    register,
-    control,
-    formState: { errors },
-  } = useFormContext();
+  const experience = useSelector((state) => state.experience.experience);
+
+  const { handleSubmit, control } = useFormContext();
   const { fields, append } = useFieldArray({
     name: 'experience',
     control,
+    defaultValues: experience,
   });
+  console.log(fields);
   const onSubmit = (data) => {
     console.log(data);
+  };
+
+  const handleInputChange = (e, name, index) => {
+    const value = e.target.value;
+    dispatch(updateExperience({ index, fieldName: name, value }));
+  };
+
+  const handleAddField = () => {
+    dispatch(addExperience());
+    append({ job: '', employer: '' });
   };
 
   return (
@@ -33,6 +44,7 @@ const Experience = () => {
               placeholder={'job'}
               minLength={2}
               regex={/^[ა-ჰ]+$/}
+              onChangeFunc={(e) => handleInputChange(e, 'job', index)}
             />
             <CustomInput
               labelText={'employer'}
@@ -40,12 +52,12 @@ const Experience = () => {
               type={'text'}
               placeholder={'employer'}
               minLength={2}
-              regex={/^[ა-ჰ]+$/}
+              onChangeFunc={(e) => handleInputChange(e, 'employer', index)}
             />
           </div>
         ))}
 
-        <button type='button' onClick={() => append({ name: '', email: '' })}>
+        <button type='button' onClick={() => handleAddField()}>
           Add Field
         </button>
       </form>
