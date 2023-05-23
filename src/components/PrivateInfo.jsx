@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useFormContext } from 'react-hook-form';
 import { updatePrivateInfo } from '../features/PrivateInfoSlice';
 import { useEffect } from 'react';
+import { getPrivateInfoFromLocalStorage } from '../utils/Localstorage';
 const PrivateInfo = () => {
   const dispatch = useDispatch();
   const { page } = useSelector((state) => state.page);
@@ -12,13 +13,14 @@ const PrivateInfo = () => {
     handleSubmit,
     setValue,
     getValues,
-    formState: { isDirty },
+    formState: { touchedFields },
+    trigger,
   } = useFormContext();
   const onSubmit = (data) => {
     console.log(data);
   };
   console.log(getValues());
-  console.log(isDirty);
+  console.log(touchedFields);
   const convertFileToBase64 = (file, callback) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -46,15 +48,19 @@ const PrivateInfo = () => {
     const value = e.target.value;
     dispatch(updatePrivateInfo({ fieldName: name, value }));
   };
+  const handleTrigger = async () => {
+    const isValidFields = await trigger();
+  };
 
   // this useEffect is for getting the data from localStorage and then setting it to the each field
   useEffect(() => {
-    const storedPrivateInfo = JSON.parse(localStorage.getItem('privateInfo'));
+    const storedPrivateInfo = getPrivateInfoFromLocalStorage();
     if (storedPrivateInfo) {
       Object.entries(storedPrivateInfo).forEach(([fieldName, value]) => {
         dispatch(updatePrivateInfo({ fieldName, value }));
         setValue(fieldName, value); // Set form field value
       });
+      handleTrigger();
     }
   }, [dispatch, setValue]);
 

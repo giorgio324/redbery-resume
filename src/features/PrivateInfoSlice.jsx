@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
+import { addPrivateInfoToLocalStorage } from '../utils/Localstorage';
 const initialState = {
   name: '',
   surname: '',
@@ -16,7 +16,7 @@ const privateInfoSlice = createSlice({
     updatePrivateInfo: (state, { payload }) => {
       const { fieldName, value } = payload;
       state[fieldName] = value;
-      localStorage.setItem('privateInfo', JSON.stringify(state));
+      addPrivateInfoToLocalStorage(state);
     },
   },
 });

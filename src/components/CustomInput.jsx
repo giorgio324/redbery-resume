@@ -1,7 +1,8 @@
 import { useFormContext } from 'react-hook-form';
 import errorIcon from '../assets/images/failedValidationIcon.svg';
 import validatedIcon from '../assets/images/successValidationIcon.svg';
-
+import { useState, useEffect } from 'react';
+import { getPrivateInfoFromLocalStorage } from '../utils/Localstorage';
 const CustomInput = ({
   name,
   labelText,
@@ -23,6 +24,14 @@ const CustomInput = ({
   const hasError = !!errors[name];
   const isTouched = !!touchedFields[name];
   const isValidated = isTouched && !hasError;
+  const [isSaved, setIsSaved] = useState(false);
+  useEffect(() => {
+    const storedPrivateInfo = getPrivateInfoFromLocalStorage();
+    if (storedPrivateInfo) {
+      setIsSaved(true);
+      console.log('saved');
+    }
+  }, []);
   return (
     <>
       {isTextArea ? (
@@ -37,14 +46,16 @@ const CustomInput = ({
               id={name}
               placeholder={placeholder}
               {...register(name, {
-                required: isTextAreaRequired ? { value: true } : false,
+                required: isTextAreaRequired
+                  ? { value: true }
+                  : { value: false },
               })}
               onChange={onChangeFunc}
               className={`resize-none border ${
                 hasError
-                  ? 'border-red-500'
-                  : isTouched && !isTextAreaRequired
-                  ? 'border-green-500'
+                  ? 'border-validationDanger'
+                  : isTouched || (isSaved && !hasError && !isTextAreaRequired)
+                  ? 'border-validationSuccess'
                   : 'border-validationDefault'
               } focus:outline-2 outline-validationDefault caret-caret placeholder:text-inputPlaceholder text-black h-[100px] font-400 rounded-[4px] py-[7px] px-4`}
             ></textarea>
@@ -88,9 +99,9 @@ const CustomInput = ({
               onChange={onChangeFunc}
               className={`border ${
                 hasError
-                  ? 'border-red-500'
-                  : isTouched
-                  ? 'border-green-500'
+                  ? 'border-validationDanger'
+                  : isTouched || (isSaved && !hasError)
+                  ? 'border-validationSuccess'
                   : 'border-validationDefault'
               } focus:outline-2 outline-validationDefault caret-caret placeholder:text-inputPlaceholder text-black font-400 rounded-[4px] py-[7px] px-4 flex-grow`}
             />
@@ -101,7 +112,14 @@ const CustomInput = ({
                 className='w-4 ml-2 absolute -right-7'
               />
             )}
-            {isValidated && (
+            {isSaved && !hasError && (
+              <img
+                src={validatedIcon}
+                alt='Validation'
+                className='w-4 ml-2 absolute -right-7'
+              />
+            )}
+            {!isSaved && isValidated && (
               <img
                 src={validatedIcon}
                 alt='Validation'
