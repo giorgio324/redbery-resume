@@ -18,9 +18,17 @@ const privateInfoSlice = createSlice({
       state[fieldName] = value;
       addPrivateInfoToLocalStorage(state);
     },
+    clearPrivateInfo: (state) => {
+      state.name = '';
+      state.surname = '';
+      state.email = '';
+      state.phone_number = '';
+      state.about_me = '';
+      state.image = '';
+    },
   },
 });
 
-export const { updatePrivateInfo } = privateInfoSlice.actions;
+export const { updatePrivateInfo, clearPrivateInfo } = privateInfoSlice.actions;
 
 export default privateInfoSlice.reducer;

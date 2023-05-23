@@ -1,9 +1,20 @@
 import { Link } from 'react-router-dom';
 import backArrow from '../assets/images/backBtnArrow.svg';
+import { removePrivateInfoFromLocalStorage } from '../utils/Localstorage';
 const BackButton = () => {
+  const handleLocalStorageClear = () => {
+    removePrivateInfoFromLocalStorage();
+  };
+
   return (
     <button className='w-[40px] h-[40px] rounded-full bg-white overflow-hidden'>
-      <Link to='/' className='w-full h-full flex items-center justify-center'>
+      <Link
+        to='/'
+        className='w-full h-full flex items-center justify-center'
+        onClick={() => {
+          handleLocalStorageClear();
+        }}
+      >
         <img src={backArrow} alt='' />
       </Link>
     </button>
