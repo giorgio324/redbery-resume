@@ -3,6 +3,7 @@ import errorIcon from '../assets/images/failedValidationIcon.svg';
 import validatedIcon from '../assets/images/successValidationIcon.svg';
 import { useState, useEffect } from 'react';
 import { getPrivateInfoFromLocalStorage } from '../utils/Localstorage';
+import { useSelector } from 'react-redux';
 const CustomInput = ({
   name,
   labelText,
@@ -19,19 +20,23 @@ const CustomInput = ({
   const {
     register,
     formState: { errors, touchedFields },
+    getValues,
   } = useFormContext();
 
   const hasError = !!errors[name];
   const isTouched = !!touchedFields[name];
   const isValidated = isTouched && !hasError;
+  const hasImage = getValues('image');
   const [isSaved, setIsSaved] = useState(false);
   useEffect(() => {
     const storedPrivateInfo = getPrivateInfoFromLocalStorage();
     if (storedPrivateInfo) {
       setIsSaved(true);
-      console.log('saved');
     }
   }, []);
+  const isImageUploaded = useSelector((state) => state.privateInfo.image);
+  const imageUrl = useSelector((state) => state.privateInfo.imageUrl);
+
   return (
     <>
       {isTextArea ? (
@@ -73,9 +78,12 @@ const CustomInput = ({
             id={name}
             {...register(name, { required: { value: true } })}
             onChange={onChangeFunc}
+            defaultValue={imageUrl ? imageUrl : null}
           />
-          {hasError && <img src={errorIcon} alt='Error' className='w-4 ml-2' />}
-          {isValidated && (
+          {!isImageUploaded && (
+            <img src={errorIcon} alt='Error' className='w-4 ml-2' />
+          )}
+          {(isValidated || isImageUploaded) && (
             <img src={validatedIcon} alt='Validation' className='w-4 ml-2' />
           )}
         </div>

@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
 import backArrow from '../assets/images/backBtnArrow.svg';
-import { removePrivateInfoFromLocalStorage } from '../utils/Localstorage';
 const BackButton = () => {
   const handleLocalStorageClear = () => {
-    removePrivateInfoFromLocalStorage();
+    localStorage.clear();
   };
 
   return (
