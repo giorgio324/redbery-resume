@@ -16,13 +16,14 @@ const CustomInput = ({
   minLength,
   regex,
   onChangeFunc,
+  error,
 }) => {
   const {
     register,
     formState: { errors, touchedFields },
     getValues,
   } = useFormContext();
-
+  console.log('custominput', errors);
   const hasError = !!errors[name];
   const isTouched = !!touchedFields[name];
   const isValidated = isTouched && !hasError;

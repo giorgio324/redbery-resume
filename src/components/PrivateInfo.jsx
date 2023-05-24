@@ -19,7 +19,7 @@ const PrivateInfo = () => {
   const onSubmit = (data) => {
     console.log(data);
   };
-  console.log(getValues());
+  console.log('privateallval', getValues());
   console.log(touchedFields);
   const convertFileToBase64 = (file, callback) => {
     const reader = new FileReader();

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  experience: [{ job: 'dev', employer: 'joe' }],
+  experience: [{ job: '', employer: '' }],
 };
 
 const experienceSlice = createSlice({

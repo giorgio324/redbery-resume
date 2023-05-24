@@ -19,7 +19,22 @@ const Resume = () => {
   }, []);
 
   const { page } = useSelector((state) => state.page);
-  const methods = useForm({ mode: 'all' });
+  const methods = useForm({
+    mode: 'all',
+    defaultValues: {
+      name: '',
+      surname: '',
+      email: '',
+      phone_number: '',
+      image: '',
+      experience: [
+        {
+          job: '',
+          employer: '',
+        },
+      ],
+    },
+  });
 
   return (
     <FormProvider {...methods}>

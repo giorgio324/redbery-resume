@@ -1,4 +1,3 @@
-import { useEffect, useLayoutEffect } from 'react';
 import NavigationButtonContainer from './NavigationButtonContainer';
 import PageTitle from './PageTitle';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,25 +8,20 @@ import { updateExperience, addExperience } from '../features/ExperienceSlice';
 const Experience = () => {
   const dispatch = useDispatch();
   const { page } = useSelector((state) => state.page);
-  const experience = useSelector((state) => state.experience.experience);
-
-  const { handleSubmit, control } = useFormContext();
+  const {
+    handleSubmit,
+    control,
+    getValues,
+    formState: { errors },
+  } = useFormContext();
   const { fields, append } = useFieldArray({
     name: 'experience',
     control,
   });
-  console.log(fields);
+  console.log('values', getValues());
   const onSubmit = (data) => {
     console.log(data);
   };
-
-  const firstField = {
-    employer: '',
-    id: '6e5c838a-41fb-48e4-92cf-1d9293bf8a1d',
-    job: '',
-  };
-
-  fields.length === 0 && fields.unshift(firstField);
 
   const handleInputChange = (e, name, index) => {
     const value = e.target.value;
@@ -54,6 +48,7 @@ const Experience = () => {
                 minLength={2}
                 regex={/^[ა-ჰ]+$/}
                 onChangeFunc={(e) => handleInputChange(e, 'job', index)}
+                error={errors.experience?.[index]?.job}
               />
               <CustomInput
                 labelText={'employer'}
