@@ -13,7 +13,7 @@ const PrivateInfo = () => {
     handleSubmit,
     setValue,
     getValues,
-    formState: { touchedFields },
+    formState: { touchedFields, errors },
     trigger,
   } = useFormContext();
   const onSubmit = (data) => {
@@ -52,13 +52,13 @@ const PrivateInfo = () => {
     const isValidFields = await trigger();
   };
 
-  // this useEffect is for getting the data from localStorage and then setting it to the each field
+  // this useEffect is for getting the data from localStorage and then setting it to the each field also if the data is in localStorage it triggers the validation
   useEffect(() => {
     const storedPrivateInfo = getPrivateInfoFromLocalStorage();
     if (storedPrivateInfo) {
       Object.entries(storedPrivateInfo).forEach(([fieldName, value]) => {
         dispatch(updatePrivateInfo({ fieldName, value }));
-        setValue(fieldName, value); // Set form field value
+        setValue(fieldName, value, { shouldTouch: true }); // Set form field value
       });
       handleTrigger();
     }
@@ -77,6 +77,8 @@ const PrivateInfo = () => {
           minLength={2}
           regex={/^[ა-ჰ]+$/}
           onChangeFunc={(e) => handleInputChange(e, 'name')}
+          error={errors.name}
+          touched={touchedFields.name}
         />
         <CustomInput
           labelText={'გვარი'}
@@ -87,6 +89,8 @@ const PrivateInfo = () => {
           minLength={2}
           regex={/^[ა-ჰ]+$/}
           onChangeFunc={(e) => handleInputChange(e, 'surname')}
+          error={errors.surname}
+          touched={touchedFields.surname}
         />
       </div>
       <div>
@@ -97,6 +101,8 @@ const PrivateInfo = () => {
           labelText={'ატვირთვა'}
           type={'file'}
           onChangeFunc={(e) => handleImageChange(e, 'image')}
+          error={errors.image}
+          touched={touchedFields.image}
         />
       </div>
       <div>
@@ -106,6 +112,8 @@ const PrivateInfo = () => {
           name={'about_me'}
           placeholder={'ზოგადი ინფო შენ შესახებ'}
           onChangeFunc={(e) => handleInputChange(e, 'about_me')}
+          error={errors.about_me}
+          touched={touchedFields.about_me}
         />
       </div>
       <div className='mt-[30px]'>
@@ -117,6 +125,8 @@ const PrivateInfo = () => {
           hint={'უნდა მთავრდებოდეს @redberry.ge-ით'}
           regex={/^[\w\.-]+@redberry\.ge$/}
           onChangeFunc={(e) => handleInputChange(e, 'email')}
+          error={errors.email}
+          touched={touchedFields.email}
         />
       </div>
       <div className='mt-[30px]'>
@@ -128,6 +138,8 @@ const PrivateInfo = () => {
           hint={'უნდა აკმაყოფილებდეს ქართული მობილურის ნომრის ფორმატს'}
           regex={/^(\+995)(5\d{2})(\d{2})(\d{2})(\d{2})$/}
           onChangeFunc={(e) => handleInputChange(e, 'phone_number')}
+          error={errors.phone_number}
+          touched={touchedFields.phone_number}
         />
       </div>
       <NavigationButtonContainer page={page} />

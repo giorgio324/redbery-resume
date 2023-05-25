@@ -49,6 +49,7 @@ const Experience = () => {
                 regex={/^[ა-ჰ]+$/}
                 onChangeFunc={(e) => handleInputChange(e, 'job', index)}
                 error={errors.experience?.[index]?.job}
+                touched={errors.experience?.[index]?.job}
               />
               <CustomInput
                 labelText={'employer'}

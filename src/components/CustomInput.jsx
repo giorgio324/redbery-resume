@@ -17,27 +17,15 @@ const CustomInput = ({
   regex,
   onChangeFunc,
   error,
+  touched,
 }) => {
   const {
     register,
     formState: { errors, touchedFields },
-    getValues,
   } = useFormContext();
-  console.log('custominput', errors);
-  const hasError = !!errors[name];
-  const isTouched = !!touchedFields[name];
-  const isValidated = isTouched && !hasError;
-  const hasImage = getValues('image');
-  const [isSaved, setIsSaved] = useState(false);
-  useEffect(() => {
-    const storedPrivateInfo = getPrivateInfoFromLocalStorage();
-    if (storedPrivateInfo) {
-      setIsSaved(true);
-    }
-  }, []);
-  const isImageUploaded = useSelector((state) => state.privateInfo.image);
-  const imageUrl = useSelector((state) => state.privateInfo.imageUrl);
-
+  console.log('custominput errors', errors);
+  console.log('custominput errors', touchedFields);
+  console.log(touched);
   return (
     <>
       {isTextArea ? (
@@ -58,9 +46,9 @@ const CustomInput = ({
               })}
               onChange={onChangeFunc}
               className={`resize-none border ${
-                hasError
+                error
                   ? 'border-validationDanger'
-                  : isTouched || (isSaved && !hasError && !isTextAreaRequired)
+                  : !error && touched
                   ? 'border-validationSuccess'
                   : 'border-validationDefault'
               } focus:outline-2 outline-validationDefault caret-caret placeholder:text-inputPlaceholder text-black h-[100px] font-400 rounded-[4px] py-[7px] px-4`}
@@ -79,12 +67,9 @@ const CustomInput = ({
             id={name}
             {...register(name, { required: { value: true } })}
             onChange={onChangeFunc}
-            defaultValue={imageUrl ? imageUrl : null}
           />
-          {!isImageUploaded && (
-            <img src={errorIcon} alt='Error' className='w-4 ml-2' />
-          )}
-          {(isValidated || isImageUploaded) && (
+          {error && <img src={errorIcon} alt='Error' className='w-4 ml-2' />}
+          {!error && touched && (
             <img src={validatedIcon} alt='Validation' className='w-4 ml-2' />
           )}
         </div>
@@ -107,31 +92,24 @@ const CustomInput = ({
               })}
               onChange={onChangeFunc}
               className={`border ${
-                hasError
+                error
                   ? 'border-validationDanger'
-                  : isTouched || (isSaved && !hasError)
+                  : !error && touched
                   ? 'border-validationSuccess'
                   : 'border-validationDefault'
               } focus:outline-2 outline-validationDefault caret-caret placeholder:text-inputPlaceholder text-black font-400 rounded-[4px] py-[7px] px-4 flex-grow`}
             />
-            {hasError && (
+            {error && (
               <img
                 src={errorIcon}
                 alt='Error'
                 className='w-4 ml-2 absolute -right-7'
               />
             )}
-            {isSaved && !hasError && (
+            {!error && touched && (
               <img
                 src={validatedIcon}
-                alt='Validation'
-                className='w-4 ml-2 absolute -right-7'
-              />
-            )}
-            {!isSaved && isValidated && (
-              <img
-                src={validatedIcon}
-                alt='Validation'
+                alt='Validated'
                 className='w-4 ml-2 absolute right-4'
               />
             )}
