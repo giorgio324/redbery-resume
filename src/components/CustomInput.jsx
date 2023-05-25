@@ -1,9 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import errorIcon from '../assets/images/failedValidationIcon.svg';
 import validatedIcon from '../assets/images/successValidationIcon.svg';
-import { useState, useEffect } from 'react';
-import { getPrivateInfoFromLocalStorage } from '../utils/Localstorage';
-import { useSelector } from 'react-redux';
 const CustomInput = ({
   name,
   labelText,
@@ -21,11 +18,11 @@ const CustomInput = ({
 }) => {
   const {
     register,
-    formState: { errors, touchedFields },
+    formState: { errors },
+    getValues,
   } = useFormContext();
   console.log('custominput errors', errors);
-  console.log('custominput errors', touchedFields);
-  console.log(touched);
+  console.log('custominput values', getValues());
   return (
     <>
       {isTextArea ? (
@@ -65,7 +62,9 @@ const CustomInput = ({
             type={type}
             name={name}
             id={name}
-            {...register(name, { required: { value: true } })}
+            {...register(name, {
+              required: { value: true },
+            })}
             onChange={onChangeFunc}
           />
           {error && <img src={errorIcon} alt='Error' className='w-4 ml-2' />}

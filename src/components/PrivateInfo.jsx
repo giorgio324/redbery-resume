@@ -19,14 +19,33 @@ const PrivateInfo = () => {
   const onSubmit = (data) => {
     console.log(data);
   };
-  console.log('privateallval', getValues());
-  console.log(touchedFields);
+
+  // this function is for validating the base64 image
+
+  const validateBase64Image = (base64String) => {
+    const validPrefixes = [
+      'data:image/jpeg',
+      'data:image/png',
+      'data:image/webp',
+    ];
+    const prefixRegex = new RegExp(
+      `^(${validPrefixes.join('|')});base64,`,
+      'i'
+    );
+    return prefixRegex.test(base64String);
+  };
   const convertFileToBase64 = (file, callback) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = function () {
-      const base64Data = reader.result.split(',')[1];
-      callback(base64Data);
+      const base64Data = reader.result;
+      const isValidImage = validateBase64Image(base64Data);
+      if (isValidImage) {
+        callback(base64Data);
+      } else {
+        console.log('Invalid image file');
+        callback('');
+      }
     };
     reader.onerror = function (error) {
       console.log('Error converting file to base64:', error);
@@ -60,6 +79,10 @@ const PrivateInfo = () => {
         dispatch(updatePrivateInfo({ fieldName, value }));
         setValue(fieldName, value, { shouldTouch: true }); // Set form field value
       });
+      const blob = new Blob([storedPrivateInfo.image], { type: 'image/png' });
+      const file = new File([blob], 'image.png', { type: 'image/png' });
+      console.log('file', file);
+      setValue('image', file, { shouldValidate: true });
       handleTrigger();
     }
   }, [dispatch, setValue]);
