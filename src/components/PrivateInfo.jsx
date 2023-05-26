@@ -89,7 +89,7 @@ const PrivateInfo = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <PageTitle title={'პირადი ინფო'} pageNum={page} />
-      <div className='flex gap-x-[56px]'>
+      <div className='flex gap-x-[56px] mt-[75px]'>
         <CustomInput
           labelText={'სახელი'}
           name={'name'}

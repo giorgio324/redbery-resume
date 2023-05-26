@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addPrivateInfoToLocalStorage } from '../utils/Localstorage';
-import { getPrivateInfoFromLocalStorage } from '../utils/Localstorage';
+import {
+  addPrivateInfoToLocalStorage,
+  getPrivateInfoFromLocalStorage,
+} from '../utils/Localstorage';
 const initialState = {
   name: getPrivateInfoFromLocalStorage().name || '',
   surname: getPrivateInfoFromLocalStorage().surname || '',

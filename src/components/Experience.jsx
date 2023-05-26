@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useFormContext, useFieldArray } from 'react-hook-form';
 import CustomInput from './CustomInput';
 import { updateExperience, addExperience } from '../features/ExperienceSlice';
-
+import { getEducationFromLocalStorage } from '../utils/Localstorage';
+import { useEffect } from 'react';
 const Experience = () => {
   const dispatch = useDispatch();
   const { page } = useSelector((state) => state.page);
@@ -13,6 +14,7 @@ const Experience = () => {
     control,
     getValues,
     formState: { errors, touchedFields },
+    trigger,
   } = useFormContext();
   const { fields, append } = useFieldArray({
     name: 'experiences',
@@ -22,7 +24,7 @@ const Experience = () => {
   const onSubmit = (data) => {
     console.log(data);
   };
-
+  console.log(getEducationFromLocalStorage()?.experiences);
   const handleInputChange = (e, name, index) => {
     const value = e.target.value;
     dispatch(updateExperience({ index, fieldName: name, value }));
@@ -38,7 +40,15 @@ const Experience = () => {
       description: '',
     });
   };
-
+  const handleTrigger = async () => {
+    const isValidFields = await trigger();
+  };
+  useEffect(() => {
+    const storedEducations = getEducationFromLocalStorage();
+    if (storedEducations) {
+      handleTrigger();
+    }
+  }, [dispatch]);
   return (
     <>
       <PageTitle title={'გამოცდილება'} pageNum={page} />
@@ -46,7 +56,7 @@ const Experience = () => {
         {fields &&
           fields.map((field, index) => (
             <div key={field.id}>
-              <div className='mb-[30px]'>
+              <div className='mb-[30px] mt-[75px]'>
                 <CustomInput
                   labelText={'თანამდებობა'}
                   name={`experiences[${index}].position`}
