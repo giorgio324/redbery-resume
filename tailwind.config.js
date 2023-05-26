@@ -20,6 +20,7 @@ export default {
         hint: '#2E2E2E',
         offBlack: '#1A1A1A',
         caret: '#6499FF',
+        underline: '#C1C1C1',
       },
       fontFamily: {
         primary: '"Helvetica Neue"',

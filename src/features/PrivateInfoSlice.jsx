@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { addPrivateInfoToLocalStorage } from '../utils/Localstorage';
+import { getPrivateInfoFromLocalStorage } from '../utils/Localstorage';
 const initialState = {
-  name: '',
-  surname: '',
-  email: '',
-  phone_number: '',
-  about_me: '',
-  image: '',
+  name: getPrivateInfoFromLocalStorage().name || '',
+  surname: getPrivateInfoFromLocalStorage().surname || '',
+  email: getPrivateInfoFromLocalStorage().email || '',
+  phone_number: getPrivateInfoFromLocalStorage().phone_number || '',
+  about_me: getPrivateInfoFromLocalStorage().about_me || '',
+  image: getPrivateInfoFromLocalStorage().image || '',
 };
 
 const privateInfoSlice = createSlice({

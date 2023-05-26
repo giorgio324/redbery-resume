@@ -12,7 +12,6 @@ const PrivateInfo = () => {
   const {
     handleSubmit,
     setValue,
-    getValues,
     formState: { touchedFields, errors },
     trigger,
   } = useFormContext();
@@ -76,13 +75,13 @@ const PrivateInfo = () => {
     const storedPrivateInfo = getPrivateInfoFromLocalStorage();
     if (storedPrivateInfo) {
       Object.entries(storedPrivateInfo).forEach(([fieldName, value]) => {
-        dispatch(updatePrivateInfo({ fieldName, value }));
         setValue(fieldName, value, { shouldTouch: true }); // Set form field value
       });
-      const blob = new Blob([storedPrivateInfo.image], { type: 'image/png' });
-      const file = new File([blob], 'image.png', { type: 'image/png' });
-      console.log('file', file);
-      setValue('image', file, { shouldValidate: true });
+      // turn the base64 string into a file and then set it to the image field but it doesnt work for now...
+      // const blob = new Blob([storedPrivateInfo.image], { type: 'image/png' });
+      // const file = new File([blob], 'image.png', { type: 'image/png' });
+      // console.log('file', file);
+      // setValue('image', file, { shouldValidate: true });
       handleTrigger();
     }
   }, [dispatch, setValue]);

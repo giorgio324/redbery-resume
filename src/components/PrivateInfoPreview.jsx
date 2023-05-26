@@ -49,7 +49,7 @@ const PrivateInfoPreview = () => {
 
       {image ? (
         <img
-          src={`data:image/png;base64, ${image}`}
+          src={image}
           alt=''
           className='w-[246px] h-[246px] rounded-full object-cover'
         />

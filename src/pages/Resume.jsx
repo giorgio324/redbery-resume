@@ -27,10 +27,13 @@ const Resume = () => {
       email: '',
       phone_number: '',
       image: '',
-      experience: [
+      experiences: [
         {
-          job: '',
+          position: '',
           employer: '',
+          start_date: '',
+          due_date: '',
+          description: '',
         },
       ],
     },

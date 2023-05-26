@@ -16,13 +16,7 @@ const CustomInput = ({
   error,
   touched,
 }) => {
-  const {
-    register,
-    formState: { errors },
-    getValues,
-  } = useFormContext();
-  console.log('custominput errors', errors);
-  console.log('custominput values', getValues());
+  const { register } = useFormContext();
   return (
     <>
       {isTextArea ? (
@@ -96,16 +90,17 @@ const CustomInput = ({
                   : !error && touched
                   ? 'border-validationSuccess'
                   : 'border-validationDefault'
-              } focus:outline-2 outline-validationDefault caret-caret placeholder:text-inputPlaceholder text-black font-400 rounded-[4px] py-[7px] px-4 flex-grow`}
+              } focus:outline-2 outline-validationDefault caret-caret placeholder:text-inputPlaceholder text-black font-400 rounded-[4px] py-[10px] px-4 flex-grow`}
             />
-            {error && (
+
+            {type !== 'date' && error && (
               <img
                 src={errorIcon}
                 alt='Error'
                 className='w-4 ml-2 absolute -right-7'
               />
             )}
-            {!error && touched && (
+            {type !== 'date' && !error && touched && (
               <img
                 src={validatedIcon}
                 alt='Validated'

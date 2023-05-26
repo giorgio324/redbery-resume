@@ -1,22 +1,36 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  experience: [{ job: '', employer: '' }],
+  experiences: [
+    {
+      position: '',
+      employer: '',
+      start_date: '',
+      due_date: '',
+      description: '',
+    },
+  ],
 };
 
 const experienceSlice = createSlice({
-  name: 'experience',
+  name: 'experiences',
   initialState,
   reducers: {
     updateExperience: (state, { payload }) => {
       const { index, fieldName, value } = payload;
-      state.experience[index] = {
-        ...state.experience[index],
+      state.experiences[index] = {
+        ...state.experiences[index],
         [fieldName]: value,
       };
     },
     addExperience: (state) => {
-      state.experience.push({ job: '', employer: '' });
+      state.experiences.push({
+        position: '',
+        employer: '',
+        start_date: '',
+        due_date: '',
+        description: '',
+      });
     },
   },
 });
