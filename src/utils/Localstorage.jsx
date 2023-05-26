@@ -22,11 +22,11 @@ export const getPrivateInfoFromLocalStorage = () => {
 };
 
 // experience localStorage functions
-export const addEducationToLocalStorage = (data) => {
+export const addExperienceToLocalStorage = (data) => {
   localStorage.setItem('experience', JSON.stringify(data));
 };
 
-export const getEducationFromLocalStorage = () => {
+export const getExperienceFromLocalStorage = () => {
   const result = localStorage.getItem('experience');
   const storedExperience = result
     ? JSON.parse(localStorage.getItem('experience'))

@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-  addEducationToLocalStorage,
-  getEducationFromLocalStorage,
+  addExperienceToLocalStorage,
+  getExperienceFromLocalStorage,
 } from '../utils/Localstorage';
 const initialState = {
-  experiences: getEducationFromLocalStorage()?.experiences || [
+  experiences: getExperienceFromLocalStorage()?.experiences || [
     {
       position: '',
       employer: '',
@@ -25,7 +25,7 @@ const experienceSlice = createSlice({
         ...state.experiences[index],
         [fieldName]: value,
       };
-      addEducationToLocalStorage(state);
+      addExperienceToLocalStorage(state);
     },
     addExperience: (state) => {
       state.experiences.push({
@@ -35,7 +35,7 @@ const experienceSlice = createSlice({
         due_date: '',
         description: '',
       });
-      addEducationToLocalStorage(state);
+      addExperienceToLocalStorage(state);
     },
     clearExperience: (state) => {
       state.experiences = [

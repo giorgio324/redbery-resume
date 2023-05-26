@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useFormContext, useFieldArray } from 'react-hook-form';
 import CustomInput from './CustomInput';
 import { updateExperience, addExperience } from '../features/ExperienceSlice';
-import { getEducationFromLocalStorage } from '../utils/Localstorage';
+import { getExperienceFromLocalStorage } from '../utils/Localstorage';
 import { useEffect } from 'react';
 const Experience = () => {
   const dispatch = useDispatch();
@@ -15,6 +15,7 @@ const Experience = () => {
     getValues,
     formState: { errors, touchedFields },
     trigger,
+    setValue,
   } = useFormContext();
   const { fields, append } = useFieldArray({
     name: 'experiences',
@@ -24,7 +25,7 @@ const Experience = () => {
   const onSubmit = (data) => {
     console.log(data);
   };
-  console.log(getEducationFromLocalStorage()?.experiences);
+  console.log(getExperienceFromLocalStorage()?.experiences);
   const handleInputChange = (e, name, index) => {
     const value = e.target.value;
     dispatch(updateExperience({ index, fieldName: name, value }));
@@ -44,11 +45,18 @@ const Experience = () => {
     const isValidFields = await trigger();
   };
   useEffect(() => {
-    const storedEducations = getEducationFromLocalStorage();
-    if (storedEducations) {
+    const storedExperiences = getExperienceFromLocalStorage();
+    if (storedExperiences && storedExperiences.experiences) {
+      storedExperiences.experiences.forEach((experience, index) => {
+        Object.entries(experience).forEach(([fieldName, value]) => {
+          setValue(`experiences[${index}].${fieldName}`, value, {
+            shouldTouch: true,
+          });
+        });
+      });
       handleTrigger();
     }
-  }, [dispatch]);
+  }, [dispatch, setValue]);
   return (
     <>
       <PageTitle title={'გამოცდილება'} pageNum={page} />
