@@ -21,6 +21,8 @@ export default {
         offBlack: '#1A1A1A',
         caret: '#6499FF',
         underline: '#C1C1C1',
+        previewUnderline: '#C8C8C8',
+        datesPreview: '#909090',
       },
       fontFamily: {
         primary: '"Helvetica Neue"',
