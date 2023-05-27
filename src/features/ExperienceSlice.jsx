@@ -51,5 +51,6 @@ const experienceSlice = createSlice({
   },
 });
 
-export const { updateExperience, addExperience } = experienceSlice.actions;
+export const { updateExperience, addExperience, clearExperience } =
+  experienceSlice.actions;
 export default experienceSlice.reducer;

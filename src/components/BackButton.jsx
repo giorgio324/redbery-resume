@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom';
 import backArrow from '../assets/images/backBtnArrow.svg';
-import {
-  clearPrivateInfo,
-  updatePrivateInfo,
-} from '../features/PrivateInfoSlice';
+import { clearPrivateInfo } from '../features/PrivateInfoSlice';
+import { clearExperience } from '../features/ExperienceSlice';
+import { clearEducation } from '../features/EducationSlice';
 import { useDispatch } from 'react-redux';
 const BackButton = () => {
   const dispatch = useDispatch();
   const handleLocalStorageClear = () => {
     localStorage.clear();
     dispatch(clearPrivateInfo());
+    dispatch(clearExperience());
   };
 
   return (

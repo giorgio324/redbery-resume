@@ -5,7 +5,7 @@ const ExperiencePreview = () => {
   return (
     <section>
       <div className='h-[1px] bg-previewUnderline mt-5'></div>
-      <h4 className='text-primary text-[18px] font-700 mt-6'>ჩემ შესახებ</h4>
+      <h4 className='text-primary text-[18px] font-700 mt-6'>ᲒᲐᲛᲝᲪᲓᲘᲚᲔᲑᲐ</h4>
       {experiences.map((experience, index) => {
         return (
           <div key={index} className='my-4'>

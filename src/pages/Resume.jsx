@@ -1,8 +1,9 @@
 import PrivateInfo from '../components/PrivateInfo';
 import ResumeLayout from '../layout/ResumeLayout';
 import Experience from '../components/Experience';
+import Education from '../components/Education';
 import { useDispatch, useSelector } from 'react-redux';
-import { useForm, FormProvider, get } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 import { useEffect } from 'react';
 import { setPage } from '../features/PageSlice';
 import {
@@ -40,6 +41,14 @@ const Resume = () => {
           description: '',
         },
       ],
+      educations: [
+        {
+          institute: '',
+          degree: '',
+          due_date: '',
+          description: '',
+        },
+      ],
     },
   });
 
@@ -48,6 +57,7 @@ const Resume = () => {
       <ResumeLayout>
         {page === 1 && <PrivateInfo />}
         {page === 2 && <Experience />}
+        {page === 3 && <Education />}
       </ResumeLayout>
     </FormProvider>
   );
