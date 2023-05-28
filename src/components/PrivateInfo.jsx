@@ -10,17 +10,12 @@ const PrivateInfo = () => {
   const dispatch = useDispatch();
   const { page } = useSelector((state) => state.page);
   const {
-    handleSubmit,
     setValue,
     formState: { touchedFields, errors },
     trigger,
   } = useFormContext();
-  const onSubmit = (data) => {
-    console.log(data);
-  };
 
   // this function is for validating the base64 image
-
   const validateBase64Image = (base64String) => {
     const validPrefixes = [
       'data:image/jpeg',
@@ -87,7 +82,7 @@ const PrivateInfo = () => {
   }, [dispatch, setValue]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form>
       <PageTitle title={'პირადი ინფო'} pageNum={page} />
       <div className='flex gap-x-[56px] mt-[75px]'>
         <CustomInput

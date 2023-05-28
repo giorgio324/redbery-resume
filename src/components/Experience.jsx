@@ -10,7 +10,6 @@ const Experience = () => {
   const dispatch = useDispatch();
   const { page } = useSelector((state) => state.page);
   const {
-    handleSubmit,
     control,
     getValues,
     formState: { errors, touchedFields },
@@ -22,10 +21,7 @@ const Experience = () => {
     control,
   });
   console.log('values', getValues());
-  const onSubmit = (data) => {
-    console.log(data);
-  };
-  console.log(getExperienceFromLocalStorage()?.experiences);
+
   const handleInputChange = (e, name, index) => {
     const value = e.target.value;
     dispatch(updateExperience({ index, fieldName: name, value }));
@@ -60,7 +56,7 @@ const Experience = () => {
   return (
     <>
       <PageTitle title={'გამოცდილება'} pageNum={page} />
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form>
         {fields &&
           fields.map((field, index) => (
             <div key={field.id}>
@@ -117,7 +113,7 @@ const Experience = () => {
                   labelText={'აღწერა'}
                   name={`experiences[${index}].description`}
                   type={'text'}
-                  placeholder={'აღწერა'}
+                  placeholder={'როლი თანამდებობაზე და ზოგადი აღწერა'}
                   minLength={2}
                   onChangeFunc={(e) =>
                     handleInputChange(e, 'description', index)

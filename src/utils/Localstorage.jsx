@@ -33,3 +33,16 @@ export const getExperienceFromLocalStorage = () => {
     : null;
   return storedExperience;
 };
+
+// education localStorage functions
+export const addEducationToLocalStorage = (data) => {
+  localStorage.setItem('education', JSON.stringify(data));
+};
+
+export const getEducationFromLocalStorage = () => {
+  const result = localStorage.getItem('education');
+  const storedEducation = result
+    ? JSON.parse(localStorage.getItem('education'))
+    : null;
+  return storedEducation;
+};

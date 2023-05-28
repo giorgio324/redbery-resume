@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
+import { addEducationToLocalStorage } from '../utils/Localstorage';
 const initialState = {
   educations: [
     {
@@ -21,6 +21,7 @@ const educationSlice = createSlice({
         ...state.educations[index],
         [fieldName]: value,
       };
+      addEducationToLocalStorage(state);
     },
     addEducation: (state) => {
       state.educations.push({
@@ -29,6 +30,7 @@ const educationSlice = createSlice({
         due_date: '',
         description: '',
       });
+      addEducationToLocalStorage(state);
     },
     clearEducation: (state) => {
       state.educations = [
