@@ -74,9 +74,9 @@ const Education = () => {
                   hint={'მინიმუმ 2 სიმბოლო'}
                 />
               </div>
-              <div className='mb-[30px] flex gap-x-[56px] items-center'>
+              <div className='mb-[30px] flex gap-x-[56px] items-start'>
                 <CustomInput
-                  labelText={'სწავლების დონე'}
+                  labelText={'ხარისხი'}
                   name={`educations[${index}].degree`}
                   isSelect={true}
                   onChangeFunc={(e) => handleInputChange(e, 'degree', index)}

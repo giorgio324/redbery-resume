@@ -69,10 +69,10 @@ const CustomInput = ({
         </div>
       ) : isSelect ? (
         // select input
-        <div className='flex gap-x-[20px] items-center my-[50px]'>
-          {hint && (
-            <span className='font-500 text-[18px] text-offBlack'>{hint}</span>
-          )}
+        <div className='w-full flex flex-col '>
+          <label htmlFor={name} className='font-500 text-black'>
+            {labelText}
+          </label>
           <select
             name={name}
             id={name}
@@ -86,7 +86,7 @@ const CustomInput = ({
                 : !error && touched
                 ? 'border-validationSuccess'
                 : 'border-validationDefault'
-            } focus:outline-2 outline-validationDefault placeholder:text-inputPlaceholder text-black font-400 rounded-[4px] py-[12px] px-4 flex-grow`}
+            } focus:outline-2 outline-validationDefault placeholder:text-inputPlaceholder text-black font-400 rounded-[4px] py-[13px] px-4 flex-grow`}
             defaultValue={''}
           >
             <option value='' disabled>

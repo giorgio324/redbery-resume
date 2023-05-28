@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
 const ExperiencePreview = () => {
   const { experiences } = useSelector((state) => state.experience);
-  console.log('e', experiences);
   return (
     <section>
       <div className='h-[1px] bg-previewUnderline mt-5'></div>
