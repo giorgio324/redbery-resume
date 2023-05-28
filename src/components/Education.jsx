@@ -36,6 +36,8 @@ const Education = () => {
     const isValidFields = await trigger();
   };
   console.log('values education', getValues());
+  console.log('errors education', errors);
+  console.log('touchedFields education', touchedFields);
   return (
     <>
       <PageTitle title={'განათლება'} pageNum={page}></PageTitle>
@@ -56,7 +58,16 @@ const Education = () => {
                   hint={'მინიმუმ 2 სიმბოლო'}
                 />
               </div>
-              <div className='mb-[30px] flex gap-x-[56px]'>
+              <div className='mb-[30px] flex gap-x-[56px] items-center'>
+                <CustomInput
+                  labelText={'სწავლების დონე'}
+                  name={`educations[${index}].degree`}
+                  isSelect={true}
+                  onChangeFunc={(e) => handleInputChange(e, 'degree', index)}
+                  error={errors.educations?.[index]?.degree}
+                  touched={touchedFields.educations?.[index]?.degree}
+                />
+
                 <CustomInput
                   labelText={'დამთავრების რიცხვი'}
                   name={`educations[${index}].due_date`}

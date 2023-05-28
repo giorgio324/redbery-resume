@@ -8,6 +8,7 @@ const CustomInput = ({
   isTextArea,
   isTextAreaRequired,
   isFileInput,
+  isSelect,
   placeholder,
   hint,
   minLength,
@@ -65,6 +66,49 @@ const CustomInput = ({
           {!error && touched && (
             <img src={validatedIcon} alt='Validation' className='w-4 ml-2' />
           )}
+        </div>
+      ) : isSelect ? (
+        // select input
+        <div className='flex gap-x-[20px] items-center my-[50px]'>
+          {hint && (
+            <span className='font-500 text-[18px] text-offBlack'>{hint}</span>
+          )}
+          <select
+            name={name}
+            id={name}
+            {...register(name, {
+              required: { value: true },
+            })}
+            onChange={onChangeFunc}
+            className={`border ${
+              error
+                ? 'border-validationDanger'
+                : !error && touched
+                ? 'border-validationSuccess'
+                : 'border-validationDefault'
+            } focus:outline-2 outline-validationDefault placeholder:text-inputPlaceholder text-black font-400 rounded-[4px] py-[12px] px-4 flex-grow`}
+            defaultValue={''}
+          >
+            <option value='' disabled>
+              აირჩიეთ ხარისხი
+            </option>
+            <option value='საშუალო სკოლის დიპლომი'>
+              საშუალო სკოლის დიპლომი
+            </option>
+            <option value='ზოგადსაგანმანათლებლო დიპლომი'>
+              ზოგადსაგანმანათლებლო დიპლომი
+            </option>
+            <option value='ბაკალავრი'>ბაკალავრი</option>
+            <option value='მაგისტრი'>მაგისტრი</option>
+            <option value='დოქტორი'>დოქტორი</option>
+            <option value='ასოცირებული ხარისხი'>ასოცირებული ხარისხი</option>
+
+            <option value='სტუდენტი'>სტუდენტი</option>
+            <option value='კოლეჯი (ხარისხის გარეშე)'>
+              კოლეჯი (ხარისხის გარეშე)
+            </option>
+            <option value='სხვა'>სხვა</option>
+          </select>
         </div>
       ) : (
         // normal input
