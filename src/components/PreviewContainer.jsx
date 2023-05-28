@@ -8,7 +8,7 @@ const PreviewContainer = () => {
   return (
     <section
       className={`relative min-h-screen bg-white min-w-[820px] max-w-[820px] px-[80px] pt-[50px] pb-[130px] ${
-        page > 3 && 'border border-black '
+        page > 3 && 'border border-black min-h-[940px]'
       }`}
     >
       <PrivateInfoPreview />

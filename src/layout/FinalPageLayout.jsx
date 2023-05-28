@@ -9,7 +9,6 @@ const FinalPageLayout = () => {
       <div>
         <BackButton />
       </div>
-
       <section className='relative flex flex-col items-center flex-grow gap-x-[60px]'>
         <div className='flex-grow flex flex-col items-center justify-center'>
           <PreviewContainer />

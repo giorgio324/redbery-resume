@@ -10,6 +10,7 @@ const BackButton = () => {
     localStorage.clear();
     dispatch(clearPrivateInfo());
     dispatch(clearExperience());
+    dispatch(clearEducation());
   };
 
   return (
