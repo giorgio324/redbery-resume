@@ -1,7 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addEducationToLocalStorage } from '../utils/Localstorage';
+import {
+  addEducationToLocalStorage,
+  getEducationFromLocalStorage,
+} from '../utils/Localstorage';
 const initialState = {
-  educations: [
+  educations: getEducationFromLocalStorage()?.educations || [
     {
       institute: '',
       degree: '',

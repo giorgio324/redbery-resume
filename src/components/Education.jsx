@@ -4,6 +4,8 @@ import PageTitle from './PageTitle';
 import { useSelector, useDispatch } from 'react-redux';
 import { useFormContext, useFieldArray } from 'react-hook-form';
 import { updateEducation, addEducation } from '../features/EducationSlice';
+import { getEducationFromLocalStorage } from '../utils/Localstorage';
+import { useEffect } from 'react';
 const Education = () => {
   const dispatch = useDispatch();
   const { page } = useSelector((state) => state.page);
@@ -32,6 +34,20 @@ const Education = () => {
       description: '',
     });
   };
+  useEffect(() => {
+    const storedEducations = getEducationFromLocalStorage();
+    console.log('storedEducations', storedEducations);
+    if (storedEducations && storedEducations.educations) {
+      storedEducations.educations.forEach((education, index) => {
+        Object.entries(education).forEach(([fieldName, value]) => {
+          setValue(`educations[${index}].${fieldName}`, value, {
+            shouldTouch: true,
+          });
+        });
+      });
+      handleTrigger();
+    }
+  }, [dispatch, setValue]);
   const handleTrigger = async () => {
     const isValidFields = await trigger();
   };

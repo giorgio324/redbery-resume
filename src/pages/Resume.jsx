@@ -10,6 +10,7 @@ import {
   getPageNumberFromLocalStorage,
   getExperienceFromLocalStorage,
   getPrivateInfoFromLocalStorage,
+  getEducationFromLocalStorage,
 } from '../utils/Localstorage';
 const Resume = () => {
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ const Resume = () => {
           description: '',
         },
       ],
-      educations: [
+      educations: getEducationFromLocalStorage()?.educations || [
         {
           institute: '',
           degree: '',
