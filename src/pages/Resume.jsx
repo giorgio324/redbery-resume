@@ -12,6 +12,7 @@ import {
   getPrivateInfoFromLocalStorage,
   getEducationFromLocalStorage,
 } from '../utils/Localstorage';
+import FinalPageLayout from '../layout/FinalPageLayout';
 const Resume = () => {
   const dispatch = useDispatch();
   // this useeffect gets the page number from localStorage if its there if not it sets it to 1
@@ -55,11 +56,14 @@ const Resume = () => {
 
   return (
     <FormProvider {...methods}>
-      <ResumeLayout>
-        {page === 1 && <PrivateInfo />}
-        {page === 2 && <Experience />}
-        {page === 3 && <Education />}
-      </ResumeLayout>
+      {page <= 3 && (
+        <ResumeLayout>
+          {page === 1 && <PrivateInfo />}
+          {page === 2 && <Experience />}
+          {page === 3 && <Education />}
+        </ResumeLayout>
+      )}
+      {page === 4 && <FinalPageLayout />}
     </FormProvider>
   );
 };

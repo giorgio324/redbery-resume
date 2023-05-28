@@ -6,7 +6,11 @@ import { useSelector } from 'react-redux';
 const PreviewContainer = () => {
   const { page } = useSelector((state) => state.page);
   return (
-    <section className='relative min-h-screen bg-white min-w-[820px] max-w-[820px] px-[80px] pt-[50px] pb-[144px]'>
+    <section
+      className={`relative min-h-screen bg-white min-w-[820px] max-w-[820px] px-[80px] pt-[50px] pb-[130px] ${
+        page > 3 && 'border border-black '
+      }`}
+    >
       <PrivateInfoPreview />
       {page > 1 && <ExperiencePreview />}
       {page > 2 && <PreviewEducation />}
