@@ -5,13 +5,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useFormContext, useFieldArray } from 'react-hook-form';
 import { updateEducation, addEducation } from '../features/EducationSlice';
 import { getEducationFromLocalStorage } from '../utils/Localstorage';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 const Education = () => {
+  const [degreeList, setDegreeList] = useState([]);
   const dispatch = useDispatch();
   const { page } = useSelector((state) => state.page);
   const {
     control,
-    getValues,
     formState: { errors, touchedFields },
     trigger,
     setValue,
@@ -35,8 +36,22 @@ const Education = () => {
     });
   };
   useEffect(() => {
+    const fetchDegreeList = async () => {
+      try {
+        const response = await axios.get(
+          'https://resume.redberryinternship.ge/api/degrees'
+        );
+        const data = response.data;
+        setDegreeList(data);
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchDegreeList();
+  }, []);
+  useEffect(() => {
     const storedEducations = getEducationFromLocalStorage();
-    console.log('storedEducations', storedEducations);
     if (storedEducations && storedEducations.educations) {
       storedEducations.educations.forEach((education, index) => {
         Object.entries(education).forEach(([fieldName, value]) => {
@@ -51,9 +66,7 @@ const Education = () => {
   const handleTrigger = async () => {
     const isValidFields = await trigger();
   };
-  console.log('values education', getValues());
-  console.log('errors education', errors);
-  console.log('touchedFields education', touchedFields);
+
   return (
     <>
       <PageTitle title={'განათლება'} pageNum={page}></PageTitle>
