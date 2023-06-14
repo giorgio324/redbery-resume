@@ -2,13 +2,14 @@ import NavigationButtonContainer from './NavigationButtonContainer';
 import CustomInput from './CustomInput';
 import PageTitle from './PageTitle';
 import { useSelector, useDispatch } from 'react-redux';
-import { useFormContext, useFieldArray } from 'react-hook-form';
+import { useFormContext, useFieldArray, set } from 'react-hook-form';
 import { updateEducation, addEducation } from '../features/EducationSlice';
 import { getEducationFromLocalStorage } from '../utils/Localstorage';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 const Education = () => {
   const [degreeList, setDegreeList] = useState([]);
+  const [degreeListFetched, setDegreeListFetched] = useState(false);
   const dispatch = useDispatch();
   const { page } = useSelector((state) => state.page);
   const {
@@ -16,6 +17,7 @@ const Education = () => {
     formState: { errors, touchedFields },
     trigger,
     setValue,
+    watch,
   } = useFormContext();
   const { fields, append } = useFieldArray({
     name: 'educations',
@@ -23,7 +25,15 @@ const Education = () => {
   });
   const handleInputChange = (e, name, index) => {
     const value = e.target.value;
-    dispatch(updateEducation({ index, fieldName: name, value }));
+    if (name === 'degree') {
+      const valueNum = Number(value);
+      const degree = degreeList.find((degree) => degree.id === valueNum);
+      dispatch(
+        updateEducation({ index, fieldName: name, value: degree.title })
+      );
+    } else {
+      dispatch(updateEducation({ index, fieldName: name, value }));
+    }
   };
 
   const handleAddField = () => {
@@ -35,6 +45,27 @@ const Education = () => {
       description: '',
     });
   };
+  const handleGettingItemsFromLocalStorage = () => {
+    const storedEducations = getEducationFromLocalStorage();
+    if (storedEducations && storedEducations.educations) {
+      storedEducations.educations.forEach((education, index) => {
+        Object.entries(education).forEach(([fieldName, value]) => {
+          if (fieldName === 'degree') {
+            const degree = degreeList.find((degree) => degree.title === value);
+            setValue(`educations[${index}].${fieldName}`, degree?.id, {
+              shouldTouch: true,
+            });
+          } else {
+            setValue(`educations[${index}].${fieldName}`, value, {
+              shouldTouch: true,
+            });
+          }
+        });
+      });
+      handleTrigger();
+    }
+  };
+  // Fetching degree list when component mounts
   useEffect(() => {
     const fetchDegreeList = async () => {
       try {
@@ -43,26 +74,20 @@ const Education = () => {
         );
         const data = response.data;
         setDegreeList(data);
-        console.log(data);
       } catch (error) {
         console.log(error);
       }
+      setDegreeListFetched(true);
     };
+
     fetchDegreeList();
   }, []);
+  // Getting items from localstorage when degree list is fetched
   useEffect(() => {
-    const storedEducations = getEducationFromLocalStorage();
-    if (storedEducations && storedEducations.educations) {
-      storedEducations.educations.forEach((education, index) => {
-        Object.entries(education).forEach(([fieldName, value]) => {
-          setValue(`educations[${index}].${fieldName}`, value, {
-            shouldTouch: true,
-          });
-        });
-      });
-      handleTrigger();
+    if (degreeListFetched) {
+      handleGettingItemsFromLocalStorage();
     }
-  }, [dispatch, setValue]);
+  }, [degreeListFetched]);
   const handleTrigger = async () => {
     const isValidFields = await trigger();
   };
@@ -95,6 +120,7 @@ const Education = () => {
                   onChangeFunc={(e) => handleInputChange(e, 'degree', index)}
                   error={errors.educations?.[index]?.degree}
                   touched={touchedFields.educations?.[index]?.degree}
+                  degreeList={degreeList}
                 />
 
                 <CustomInput

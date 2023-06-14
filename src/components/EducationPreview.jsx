@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-const PreviewEducation = () => {
+const EducationPreview = () => {
   const { educations } = useSelector((state) => state.education);
   return (
     <section>
@@ -24,4 +24,4 @@ const PreviewEducation = () => {
     </section>
   );
 };
-export default PreviewEducation;
+export default EducationPreview;

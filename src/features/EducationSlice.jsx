@@ -12,6 +12,7 @@ const initialState = {
       description: '',
     },
   ],
+  degreeList: [],
 };
 
 const educationSlice = createSlice({

@@ -1,6 +1,6 @@
 import PrivateInfoPreview from './PrivateInfoPreview';
 import ExperiencePreview from './ExperiencePreview';
-import PreviewEducation from './PreviewEducation';
+import EducationPreview from './EducationPreview';
 import watermark from '../assets/images/previewWatermark.svg';
 import { useSelector } from 'react-redux';
 const PreviewContainer = () => {
@@ -13,7 +13,7 @@ const PreviewContainer = () => {
     >
       <PrivateInfoPreview />
       {page > 1 && <ExperiencePreview />}
-      {page > 2 && <PreviewEducation />}
+      {page > 2 && <EducationPreview />}
       <img
         src={watermark}
         alt='watermark'

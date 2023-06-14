@@ -16,6 +16,7 @@ const CustomInput = ({
   onChangeFunc,
   error,
   touched,
+  degreeList,
 }) => {
   const { register } = useFormContext();
   return (
@@ -92,22 +93,11 @@ const CustomInput = ({
             <option value='' disabled>
               აირჩიეთ ხარისხი
             </option>
-            <option value='საშუალო სკოლის დიპლომი'>
-              საშუალო სკოლის დიპლომი
-            </option>
-            <option value='ზოგადსაგანმანათლებლო დიპლომი'>
-              ზოგადსაგანმანათლებლო დიპლომი
-            </option>
-            <option value='ბაკალავრი'>ბაკალავრი</option>
-            <option value='მაგისტრი'>მაგისტრი</option>
-            <option value='დოქტორი'>დოქტორი</option>
-            <option value='ასოცირებული ხარისხი'>ასოცირებული ხარისხი</option>
-
-            <option value='სტუდენტი'>სტუდენტი</option>
-            <option value='კოლეჯი (ხარისხის გარეშე)'>
-              კოლეჯი (ხარისხის გარეშე)
-            </option>
-            <option value='სხვა'>სხვა</option>
+            {degreeList.map((degree) => (
+              <option key={degree.id} value={degree.id}>
+                {degree.title}
+              </option>
+            ))}
           </select>
         </div>
       ) : (
